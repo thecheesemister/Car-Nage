@@ -1,14 +1,16 @@
 const rectangle = document.getElementById("draggable");
 
 let isDragging = false;
-let targetX = 50, targetY = 50; // Target position for the spring effect
-let posX = 50, posY = 50; // Current position of the rectangle
+let targetX = window.innerWidth / 2, targetY = window.innerHeight / 2;
+let posX = targetX, posY = targetY;
+let velocityX = 0, velocityY = 0;
+let angle = 0;
 let offsetX = 0, offsetY = 0;
 
 rectangle.addEventListener("mousedown", (e) => {
     isDragging = true;
-    offsetX = e.clientX - rectangle.getBoundingClientRect().left;
-    offsetY = e.clientY - rectangle.getBoundingClientRect().top;
+    offsetX = e.clientX - rectangle.getBoundingClientRect().left - 50;
+    offsetY = e.clientY - rectangle.getBoundingClientRect().top - 50;
     rectangle.style.cursor = "grabbing";
 });
 
@@ -25,12 +27,26 @@ document.addEventListener("mouseup", () => {
 });
 
 function animate() {
-    // Apply easing/spring effect
-    posX += (targetX - posX) * 0.1;
-    posY += (targetY - posY) * 0.1;
+    let dx = targetX - posX;
+    let dy = targetY - posY;
 
-    rectangle.style.left = `${posX}px`;
-    rectangle.style.top = `${posY}px`;
+    // Simulate acceleration (spring effect)
+    velocityX += dx * 0.05;
+    velocityY += dy * 0.05;
+
+    // Simulate friction (slow down movement)
+    velocityX *= 0.9;
+    velocityY *= 0.9;
+
+    // Apply new position
+    posX += velocityX;
+    posY += velocityY;
+
+    // Calculate rotation angle based on movement direction
+    angle = Math.atan2(velocityY, velocityX) * (180 / Math.PI);
+
+    // Apply movement and rotation
+    rectangle.style.transform = `translate(${posX}px, ${posY}px) rotate(${angle}deg)`;
 
     requestAnimationFrame(animate);
 }
