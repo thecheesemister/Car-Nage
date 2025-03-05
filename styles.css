@@ -1,0 +1,15 @@
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+.rectangle {
+    width: 150px;
+    height: 100px;
+    background-color: blue;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    cursor: grab;
+    border-radius: 10px;
+}
