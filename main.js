@@ -22,7 +22,7 @@ let car;
 let cursors;
 
 function preload() {
-  this.load.image('car', '/Car-Nage/images.png'); // top-down car sprite
+  this.load.image('car', 'https://i.ibb.co/Jj82xmB/car.png');
 }
 
 function create() {
