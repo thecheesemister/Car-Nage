@@ -26,10 +26,9 @@ function preload() {
   const carWidth = 40;
   const carHeight = 20;
   const graphics = this.add.graphics();
-  graphics.fillStyle(0xffa500, 0.6); // faded orange (opacity 0.6)
+  graphics.fillStyle(0xffa500, 1); // faded orange (opacity 0.6)
   graphics.fillRect(0, 0, carWidth, carHeight);
-  graphics.generateTexture('car', carWidth, carHeight);
-  graphics.destroy(); // clean up the graphics object
+  graphics.generateTexture('car', carWidth, carHeight); // clean up the graphics object
 }
 
 function create() {
