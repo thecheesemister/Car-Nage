@@ -22,7 +22,14 @@ let car;
 let cursors;
 
 function preload() {
-  this.load.image('car', 'https://i.ibb.co/r2qMbF7/images.png'); // updated car sprite
+  // Create a rectangle graphic and convert it to a texture called 'car'
+  const carWidth = 40;
+  const carHeight = 20;
+  const graphics = this.add.graphics();
+  graphics.fillStyle(0xffa500, 0.6); // faded orange (opacity 0.6)
+  graphics.fillRect(0, 0, carWidth, carHeight);
+  graphics.generateTexture('car', carWidth, carHeight);
+  graphics.destroy(); // clean up the graphics object
 }
 
 function create() {
