@@ -29,32 +29,34 @@ function preload() {
   graphics.fillStyle(0xffa500, 0.6); // faded orange (opacity 0.6)
   graphics.fillRect(0, 0, carWidth, carHeight);
   graphics.generateTexture('car', carWidth, carHeight);
-  graphics.destroy();
+  graphics.destroy(); // destroy the graphic object after generating the texture
 }
 
 function create() {
   car = this.physics.add.sprite(400, 300, 'car');
 
   car.setDamping(true);        // enable smooth damping
-  car.setDrag(0.95);           // linear friction (tweak to taste)
-  car.setAngularDrag(300);     // rotational friction
-  car.setMaxVelocity(200);     // top speed
+  car.setDrag(0.98);           // stronger linear friction (tune as needed)
+  car.setAngularDrag(300);     // rotational drag to slow down spin
+  car.setMaxVelocity(200);     // set a top speed (can be adjusted)
 
   cursors = this.input.keyboard.createCursorKeys();
 }
 
 function update() {
+  // Accelerate forward based on rotation if up arrow is pressed
   if (cursors.up.isDown) {
     this.physics.velocityFromRotation(car.rotation, 200, car.body.acceleration);
   } else {
-    car.setAcceleration(0);
+    car.setAcceleration(0); // stop accelerating if up arrow is not pressed
   }
 
+  // Turn the car left or right based on arrow keys
   if (cursors.left.isDown) {
-    car.setAngularVelocity(-150);
+    car.setAngularVelocity(-150); // turn left
   } else if (cursors.right.isDown) {
-    car.setAngularVelocity(150);
+    car.setAngularVelocity(150);  // turn right
   } else {
-    car.setAngularVelocity(0);
+    car.setAngularVelocity(0);    // no turning if no left/right input
   }
 }
